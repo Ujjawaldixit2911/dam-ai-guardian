@@ -65,7 +65,7 @@ const Admin = () => {
   const fetchSosHistory = async () => {
     try {
       setLoading(true);
-      const endpoint = (import.meta as any).env.VITE_SOS_HISTORY_ENDPOINT || 'http://localhost:5000/api/alerts/history';
+      const endpoint = (import.meta as any).env.VITE_SOS_HISTORY_ENDPOINT || 'https://dam-ai-guardian-ols0.onrender.com/api/alerts/history';
       const response = await fetch(endpoint);
       const data = await response.json();
       if (data.ok) {

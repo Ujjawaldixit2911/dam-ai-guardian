@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://dam-ai-guardian-ols0.onrender.com';
 
 export const authService = {
   login: async (email: string, password: string) => {

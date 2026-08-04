@@ -9,7 +9,7 @@ type AlertResponse =
   | { ok: true; fallback?: boolean; previewUrl?: string; message?: string }
   | { ok: false; error: string };
 
-const API_BASE_URL = import.meta.env?.VITE_BACKEND_URL || "http://localhost:5000";
+const API_BASE_URL = import.meta.env?.VITE_BACKEND_URL || "https://dam-ai-guardian-ols0.onrender.com";
 
 const openMailFallback = (payload: AlertPayload): AlertResponse => {
   if (typeof window === "undefined") {

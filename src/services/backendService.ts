@@ -1,8 +1,8 @@
 // Backend API Service for HydroLake Advanced Features
 import { io, Socket } from 'socket.io-client';
 
-const API_BASE_URL = 'http://localhost:5000/api';
-const SOCKET_URL = 'http://localhost:5000';
+const SOCKET_URL = import.meta.env.VITE_API_URL || 'https://dam-ai-guardian-ols0.onrender.com';
+const API_BASE_URL = `${SOCKET_URL}/api`;
 
 let socket: Socket | null = null;
 

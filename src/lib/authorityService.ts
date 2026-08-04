@@ -1,5 +1,5 @@
 const STORAGE_KEY = "hydrolake_authority_emails";
-const API_BASE_URL = (import.meta as any).env?.VITE_BACKEND_URL || "http://localhost:5000";
+const API_BASE_URL = (import.meta as any).env?.VITE_BACKEND_URL || "https://dam-ai-guardian-ols0.onrender.com";
 
 const parseEmails = (raw: string): string[] => {
   return raw

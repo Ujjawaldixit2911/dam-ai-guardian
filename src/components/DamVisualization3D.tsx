@@ -39,7 +39,7 @@ interface TrainingProfile {
   flowRate: MetricRange;
 }
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://dam-ai-guardian-ols0.onrender.com';
 
 const DamVisualization3D: React.FC<DamVisualizationProps> = ({
   waterLevel = 65,
