@@ -289,19 +289,19 @@ const Profile = () => {
         
         <div className="flex flex-col md:flex-row items-center md:items-start gap-8 relative z-10">
           {/* Avatar Section with Upload Controls */}
-          <div className="flex flex-col items-center gap-3">
-            <div className="relative group">
+          <div className="flex flex-col items-center gap-3 bg-card/40 p-5 rounded-2xl border border-primary/20 shadow-inner">
+            <div className="relative group cursor-pointer" onClick={() => fileInputRef.current?.click()}>
               {formData.avatarUrl ? (
                 <img
                   src={formData.avatarUrl}
                   alt={formData.name || 'User'}
-                  className="w-32 h-32 md:w-36 md:h-36 rounded-2xl object-cover border-4 border-primary/50 shadow-2xl transition-transform duration-300 group-hover:scale-105"
+                  className="w-36 h-36 rounded-2xl object-cover border-4 border-primary/60 shadow-2xl transition-transform duration-300 group-hover:scale-105"
                 />
               ) : (
                 <div
-                  className={`w-32 h-32 md:w-36 md:h-36 rounded-2xl ${getAvatarColor(
+                  className={`w-36 h-36 rounded-2xl ${getAvatarColor(
                     formData.name || ''
-                  )} flex items-center justify-center text-4xl md:text-5xl font-extrabold text-white shadow-2xl border-4 border-primary/40`}
+                  )} flex items-center justify-center text-5xl font-extrabold text-white shadow-2xl border-4 border-primary/50`}
                 >
                   {getInitials(formData.name || 'User')}
                 </div>
@@ -315,81 +315,81 @@ const Profile = () => {
                 title={formData.onDuty ? 'On Active Duty' : 'Off Duty'}
               />
 
-              {/* Hidden file input */}
-              <input
-                type="file"
-                ref={fileInputRef}
-                onChange={handleImageUpload}
-                accept="image/*"
-                className="hidden"
-              />
-
-              {/* Quick overlay camera trigger */}
-              <button
-                type="button"
-                onClick={() => fileInputRef.current?.click()}
-                className="absolute inset-0 bg-black/60 rounded-2xl flex flex-col items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity duration-200"
-                title="Change Photo"
-              >
-                <Camera className="w-8 h-8 mb-1" />
-                <span className="text-xs font-medium">Upload Photo</span>
-              </button>
+              {/* Camera Badge overlay on hover or mobile */}
+              <div className="absolute inset-0 bg-black/60 rounded-2xl flex flex-col items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                <Camera className="w-8 h-8 mb-1 text-primary" />
+                <span className="text-xs font-semibold">Change Photo</span>
+              </div>
             </div>
 
-            {/* Photo Action Buttons */}
-            <div className="flex flex-wrap items-center justify-center gap-2">
+            {/* Hidden file input */}
+            <input
+              type="file"
+              ref={fileInputRef}
+              onChange={handleImageUpload}
+              accept="image/png, image/jpeg, image/webp, image/gif"
+              className="hidden"
+            />
+
+            {/* Clear, Prominent Action Buttons */}
+            <div className="flex flex-col gap-2 w-full mt-1">
               <Button
-                variant="outline"
+                type="button"
+                variant="default"
                 size="sm"
                 onClick={() => fileInputRef.current?.click()}
-                className="text-xs h-8 glass-card border-primary/40 hover:bg-primary/20 flex items-center gap-1.5"
+                className="text-xs h-9 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold shadow-md flex items-center justify-center gap-2 w-full"
               >
-                <Upload className="w-3.5 h-3.5 text-primary" />
+                <Upload className="w-4 h-4" />
                 Upload Photo
               </Button>
 
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => setShowPresetPicker(!showPresetPicker)}
-                className="text-xs h-8 glass-card border-primary/40 hover:bg-primary/20 flex items-center gap-1.5"
-              >
-                <Sparkles className="w-3.5 h-3.5 text-secondary" />
-                Presets
-              </Button>
-
-              {formData.avatarUrl && (
+              <div className="flex items-center gap-2 w-full">
                 <Button
-                  variant="ghost"
+                  type="button"
+                  variant="outline"
                   size="sm"
-                  onClick={handleRemovePhoto}
-                  className="text-xs h-8 text-destructive hover:bg-destructive/10 px-2"
-                  title="Remove custom photo"
+                  onClick={() => setShowPresetPicker(!showPresetPicker)}
+                  className="text-xs h-8 glass-card border-primary/40 hover:bg-primary/20 flex-1 flex items-center justify-center gap-1.5"
                 >
-                  <Trash2 className="w-3.5 h-3.5" />
+                  <Sparkles className="w-3.5 h-3.5 text-secondary" />
+                  {showPresetPicker ? 'Hide Presets' : 'Choose Preset'}
                 </Button>
-              )}
+
+                {formData.avatarUrl && (
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    onClick={handleRemovePhoto}
+                    className="text-xs h-8 border-destructive/40 text-destructive hover:bg-destructive/10 px-2.5"
+                    title="Remove custom photo"
+                  >
+                    <Trash2 className="w-3.5 h-3.5" />
+                  </Button>
+                )}
+              </div>
             </div>
 
-            {/* Preset Avatar Selector Dropdown / Drawer */}
+            {/* Preset Avatar Selector */}
             {showPresetPicker && (
-              <div className="p-3 glass-card rounded-xl border border-primary/30 shadow-lg mt-2 flex flex-col gap-2 w-full animate-in fade-in zoom-in-95">
-                <span className="text-xs font-semibold text-muted-foreground text-center">
-                  Select Preset Avatar:
+              <div className="p-3 glass-card rounded-xl border border-primary/30 shadow-lg mt-1 flex flex-col gap-2 w-full animate-in fade-in zoom-in-95">
+                <span className="text-[11px] font-semibold text-muted-foreground text-center">
+                  Pick an Engineer Avatar:
                 </span>
-                <div className="flex items-center justify-center gap-2">
+                <div className="grid grid-cols-5 gap-1.5 justify-items-center">
                   {PRESET_AVATARS.map((preset, idx) => (
                     <button
                       key={idx}
                       type="button"
                       onClick={() => handleSelectPresetAvatar(preset.url)}
-                      className="relative group/p rounded-lg overflow-hidden border border-primary/30 hover:border-primary transition-all hover:scale-110"
+                      className="relative rounded-lg overflow-hidden border-2 border-primary/30 hover:border-primary hover:scale-110 transition-all shadow-sm"
                       title={preset.label}
                     >
                       <img
                         src={preset.url}
                         alt={preset.label}
-                        className="w-10 h-10 object-cover"
+                        className="w-9 h-9 object-cover"
                       />
                     </button>
                   ))}
