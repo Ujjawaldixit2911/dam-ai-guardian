@@ -3,13 +3,22 @@ import authService from '../services/authService';
 import { signInWithPopup } from 'firebase/auth';
 import { auth, googleProvider } from '../lib/firebase';
 
-interface User {
+export interface User {
   id: string;
   name: string;
   email: string;
   role: string;
   organization?: string;
   phone?: string;
+  designation?: string;
+  assignedDam?: string;
+  specialization?: string;
+  experience?: string;
+  licenseNumber?: string;
+  emergencyContact?: string;
+  bio?: string;
+  avatarUrl?: string;
+  onDuty?: boolean;
 }
 
 interface AuthContextType {
@@ -26,22 +35,40 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 // Demo accounts fallback
-const demoAccounts = [
+const demoAccounts: (User & { password: string })[] = [
   {
     id: '1',
     email: 'admin@dam.com',
     password: 'demo123',
-    name: 'abc',
+    name: 'Ujjawal Dixit',
     role: 'Project Guide',
-    organization: 'IMS Engineering College',
+    designation: 'Chief Dam Safety Director',
+    assignedDam: 'Tehri Dam (Uttarakhand)',
+    specialization: 'Structural & Hydro-Geological Safety',
+    experience: '12+ Years',
+    licenseNumber: 'CWC-DIR-9021',
+    organization: 'IMS Engineering College & CWC',
+    phone: '+91 98765 43210',
+    emergencyContact: '+91 98765 00000',
+    bio: 'Overseeing AI dam safety telemetry, predictive structural analysis, and multi-agency emergency response.',
+    onDuty: true,
   },
   {
     id: '2',
     email: 'engineer@dam.com',
     password: 'demo123',
-    name: 'pqr',
+    name: 'Dr. Rajesh Sharma',
     role: 'Safety Engineer',
-    organization: 'Central Water Commission',
+    designation: 'Senior Hydrological & Structural Engineer',
+    assignedDam: 'Bhakra Nangal Dam (Himachal Pradesh)',
+    specialization: 'Seepage Analysis, Seismic Telemetry & Spillway Dynamics',
+    experience: '8 Years',
+    licenseNumber: 'CWC-ENG-4412',
+    organization: 'Central Water Commission (CWC)',
+    phone: '+91 91234 56789',
+    emergencyContact: '+91 91234 99999',
+    bio: 'Lead field telemetry & sensor monitoring engineer for reservoir water levels and gate automation.',
+    onDuty: true,
   },
 ];
 
@@ -126,6 +153,15 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         email: account.email,
         role: account.role,
         organization: account.organization,
+        phone: account.phone,
+        designation: account.designation,
+        assignedDam: account.assignedDam,
+        specialization: account.specialization,
+        experience: account.experience,
+        licenseNumber: account.licenseNumber,
+        emergencyContact: account.emergencyContact,
+        bio: account.bio,
+        onDuty: account.onDuty ?? true,
       };
       setCurrentUser(user);
       localStorage.setItem('dam_user', JSON.stringify(user));
@@ -146,6 +182,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         role: existingUser.role,
         organization: existingUser.organization,
         phone: existingUser.phone,
+        designation: existingUser.designation,
+        assignedDam: existingUser.assignedDam,
+        specialization: existingUser.specialization,
+        experience: existingUser.experience,
+        licenseNumber: existingUser.licenseNumber,
+        emergencyContact: existingUser.emergencyContact,
+        bio: existingUser.bio,
+        onDuty: existingUser.onDuty ?? true,
       };
       setCurrentUser(user);
       localStorage.setItem('dam_user', JSON.stringify(user));

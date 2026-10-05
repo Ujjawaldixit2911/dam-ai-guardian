@@ -97,16 +97,24 @@ const Header = () => {
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" className="flex items-center gap-3 px-3">
-                <div
-                  className={`w-10 h-10 rounded-full ${getAvatarColor(
-                    currentUser?.name || ''
-                  )} flex items-center justify-center font-semibold text-sm`}
-                >
-                  {getInitials(currentUser?.name || 'User')}
-                </div>
+                {currentUser?.avatarUrl ? (
+                  <img
+                    src={currentUser.avatarUrl}
+                    alt={currentUser?.name || 'User'}
+                    className="w-10 h-10 rounded-full object-cover border-2 border-primary/40 shadow-sm"
+                  />
+                ) : (
+                  <div
+                    className={`w-10 h-10 rounded-full ${getAvatarColor(
+                      currentUser?.name || ''
+                    )} flex items-center justify-center font-semibold text-sm shadow-sm`}
+                  >
+                    {getInitials(currentUser?.name || 'User')}
+                  </div>
+                )}
                 <div className="text-left hidden md:block">
                   <div className="text-sm font-medium">{currentUser?.name}</div>
-                  <div className="text-xs text-muted-foreground">{currentUser?.role}</div>
+                  <div className="text-xs text-muted-foreground">{currentUser?.designation || currentUser?.role}</div>
                 </div>
                 <ChevronDown className="w-4 h-4" />
               </Button>
